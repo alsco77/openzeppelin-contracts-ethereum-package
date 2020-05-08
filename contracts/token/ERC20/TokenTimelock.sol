@@ -1,7 +1,6 @@
 pragma solidity ^0.6.0;
 
-import "../../../token/ERC20/SafeERC20.sol";
-import "../../../token/ERC20/TokenTimelock.sol";
+import "./SafeERC20.sol";
 import "../../Initializable.sol";
 
 /**
@@ -19,14 +18,14 @@ contract TokenTimelockUpgradeable is Initializable {
     }
 
     function __TokenTimelock_init_unchained(IERC20 token, address beneficiary, uint256 releaseTime) internal {
-        
-        
+
+
         // solhint-disable-next-line not-rely-on-time
         require(releaseTime > block.timestamp, "TokenTimelock: release time is before current time");
         _token = token;
         _beneficiary = beneficiary;
         _releaseTime = releaseTime;
-    
+
     }
 
     using SafeERC20 for IERC20;
@@ -40,7 +39,7 @@ contract TokenTimelockUpgradeable is Initializable {
     // timestamp when token release is enabled
     uint256 private _releaseTime;
 
-    
+
 
     /**
      * @return the token being held.
