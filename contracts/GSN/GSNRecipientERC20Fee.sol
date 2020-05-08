@@ -123,7 +123,7 @@ contract GSNRecipientERC20FeeUpgradeable is Initializable, GSNRecipientUpgradeab
  * outside of this context.
  */
 // solhint-disable-next-line contract-name-camelcase
-contract __unstable__ERC20OwnedUpgradeable is Initializable, ERC20Upgradeable, OwnableUpgradeable {
+contract __unstable__ERC20Owned is Initializable, ERC20Upgradeable, OwnableUpgradeable {
     function ____unstable__ERC20Owned_init(string memory name, string memory symbol) internal {
         __Context_init_unchained();
         __ERC20_init_unchained(name, symbol);
@@ -139,6 +139,9 @@ contract __unstable__ERC20OwnedUpgradeable is Initializable, ERC20Upgradeable, O
     uint256 private constant _UINT256_MAX = 2**256 - 1;
 
     
+    constructor(string memory name, string memory symbol) public {
+        ____unstable__ERC20Owned_init(name, symbol);
+    }
 
     // The owner (GSNRecipientERC20Fee) can mint tokens
     function mint(address account, uint256 amount) public onlyOwner {
