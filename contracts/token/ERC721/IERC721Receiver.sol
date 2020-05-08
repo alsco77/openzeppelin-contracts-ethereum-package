@@ -1,11 +1,21 @@
 pragma solidity ^0.6.0;
+import "../../Initializable.sol";
 
 /**
  * @title ERC721 token receiver interface
  * @dev Interface for any contract that wants to support safeTransfers
  * from ERC721 asset contracts.
  */
-abstract contract IERC721Receiver {
+abstract contract IERC721ReceiverUpgradeable is Initializable {
+    function __IERC721Receiver_init() internal {
+        __IERC721Receiver_init_unchained();
+    }
+
+    function __IERC721Receiver_init_unchained() internal {
+        
+        
+    }
+
     /**
      * @notice Handle the receipt of an NFT
      * @dev The ERC721 smart contract calls this function on the recipient

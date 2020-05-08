@@ -2,12 +2,25 @@ pragma solidity ^0.6.0;
 
 import "../../GSN/Context.sol";
 import "./ERC721.sol";
+import "../../Initializable.sol";
 
 /**
  * @title ERC721 Burnable Token
  * @dev ERC721 Token that can be irreversibly burned (destroyed).
  */
-abstract contract ERC721Burnable is Context, ERC721 {
+abstract contract ERC721BurnableUpgradeable is Initializable, ContextUpgradeable, ERC721Upgradeable {
+    function __ERC721Burnable_init() internal {
+        __ERC165_init_unchained();
+        __Context_init_unchained();
+        __ERC721_init_unchained();
+        __ERC721Burnable_init_unchained();
+    }
+
+    function __ERC721Burnable_init_unchained() internal {
+        
+        
+    }
+
     /**
      * @dev Burns a specific ERC721 token.
      * @param tokenId uint256 id of the ERC721 token to be burned.

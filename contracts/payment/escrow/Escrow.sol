@@ -3,6 +3,7 @@ pragma solidity ^0.6.0;
 import "../../math/SafeMath.sol";
 import "../../access/Ownable.sol";
 import "../../utils/Address.sol";
+import "../../Initializable.sol";
 
  /**
   * @title Escrow
@@ -17,7 +18,18 @@ import "../../utils/Address.sol";
   * payment method should be its owner, and provide public methods redirecting
   * to the escrow's deposit and withdraw.
   */
-contract Escrow is Ownable {
+contract EscrowUpgradeable is Initializable, OwnableUpgradeable {
+    function __Escrow_init() internal {
+        __Context_init_unchained();
+        __Ownable_init_unchained();
+        __Escrow_init_unchained();
+    }
+
+    function __Escrow_init_unchained() internal {
+        
+        
+    }
+
     using SafeMath for uint256;
     using Address for address payable;
 

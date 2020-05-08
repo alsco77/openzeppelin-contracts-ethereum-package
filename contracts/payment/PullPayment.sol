@@ -1,6 +1,7 @@
 pragma solidity ^0.6.2;
 
 import "./escrow/Escrow.sol";
+import "../Initializable.sol";
 
 /**
  * @dev Simple implementation of a
@@ -20,12 +21,21 @@ import "./escrow/Escrow.sol";
  * instead of Solidity's `transfer` function. Payees can query their due
  * payments with {payments}, and retrieve them with {withdrawPayments}.
  */
-contract PullPayment {
+contract PullPaymentUpgradeable is Initializable {
+    function __PullPayment_init() internal {
+        __PullPayment_init_unchained();
+    }
+
+    function __PullPayment_init_unchained() internal {
+        
+        
+        _escrow = new Escrow();
+    
+    }
+
     Escrow private _escrow;
 
-    constructor () internal {
-        _escrow = new Escrow();
-    }
+    
 
     /**
      * @dev Withdraw accumulated payments, forwarding all gas to the recipient.

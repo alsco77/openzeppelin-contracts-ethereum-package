@@ -3,8 +3,19 @@ pragma solidity ^0.6.0;
 import "../GSN/Context.sol";
 import "../token/ERC20/IERC20.sol";
 import "../token/ERC20/SafeERC20.sol";
+import "../Initializable.sol";
 
-contract ERC20ReturnFalseMock is Context {
+contract ERC20ReturnFalseMockUpgradeable is Initializable, ContextUpgradeable {
+    function __ERC20ReturnFalseMock_init() internal {
+        __Context_init_unchained();
+        __ERC20ReturnFalseMock_init_unchained();
+    }
+
+    function __ERC20ReturnFalseMock_init_unchained() internal {
+        
+        
+    }
+
     uint256 private _allowance;
 
     // IERC20's functions are not pure, but these mock implementations are: to prevent Solidity from issuing warnings,
@@ -32,7 +43,17 @@ contract ERC20ReturnFalseMock is Context {
     }
 }
 
-contract ERC20ReturnTrueMock is Context {
+contract ERC20ReturnTrueMockUpgradeable is Initializable, ContextUpgradeable {
+    function __ERC20ReturnTrueMock_init() internal {
+        __Context_init_unchained();
+        __ERC20ReturnTrueMock_init_unchained();
+    }
+
+    function __ERC20ReturnTrueMock_init_unchained() internal {
+        
+        
+    }
+
     mapping (address => uint256) private _allowances;
 
     // IERC20's functions are not pure, but these mock implementations are: to prevent Solidity from issuing warnings,
@@ -63,7 +84,17 @@ contract ERC20ReturnTrueMock is Context {
     }
 }
 
-contract ERC20NoReturnMock is Context {
+contract ERC20NoReturnMockUpgradeable is Initializable, ContextUpgradeable {
+    function __ERC20NoReturnMock_init() internal {
+        __Context_init_unchained();
+        __ERC20NoReturnMock_init_unchained();
+    }
+
+    function __ERC20NoReturnMock_init_unchained() internal {
+        
+        
+    }
+
     mapping (address => uint256) private _allowances;
 
     // IERC20's functions are not pure, but these mock implementations are: to prevent Solidity from issuing warnings,
@@ -91,14 +122,24 @@ contract ERC20NoReturnMock is Context {
     }
 }
 
-contract SafeERC20Wrapper is Context {
+contract SafeERC20WrapperUpgradeable is Initializable, ContextUpgradeable {
+    function __SafeERC20Wrapper_init(IERC20 token) internal {
+        __Context_init_unchained();
+        __SafeERC20Wrapper_init_unchained(token);
+    }
+
+    function __SafeERC20Wrapper_init_unchained(IERC20 token) internal {
+        
+        
+        _token = token;
+    
+    }
+
     using SafeERC20 for IERC20;
 
     IERC20 private _token;
 
-    constructor (IERC20 token) public {
-        _token = token;
-    }
+    
 
     function transfer() public {
         _token.safeTransfer(address(0), 0);

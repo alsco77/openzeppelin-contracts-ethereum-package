@@ -1,6 +1,7 @@
 pragma solidity ^0.6.0;
 
 import "./IERC165.sol";
+import "../Initializable.sol";
 
 /**
  * @dev Implementation of the {IERC165} interface.
@@ -8,7 +9,20 @@ import "./IERC165.sol";
  * Contracts may inherit from this and call {_registerInterface} to declare
  * their support of an interface.
  */
-contract ERC165 is IERC165 {
+contract ERC165Upgradeable is Initializable, IERC165 {
+    function __ERC165_init() internal {
+        __ERC165_init_unchained();
+    }
+
+    function __ERC165_init_unchained() internal {
+        
+        
+        // Derived contracts need only register support for their own interfaces,
+        // we register support for ERC165 itself here
+        _registerInterface(_INTERFACE_ID_ERC165);
+    
+    }
+
     /*
      * bytes4(keccak256('supportsInterface(bytes4)')) == 0x01ffc9a7
      */
@@ -19,11 +33,7 @@ contract ERC165 is IERC165 {
      */
     mapping(bytes4 => bool) private _supportedInterfaces;
 
-    constructor () internal {
-        // Derived contracts need only register support for their own interfaces,
-        // we register support for ERC165 itself here
-        _registerInterface(_INTERFACE_ID_ERC165);
-    }
+    
 
     /**
      * @dev See {IERC165-supportsInterface}.

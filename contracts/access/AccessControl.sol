@@ -3,6 +3,7 @@ pragma solidity ^0.6.0;
 import "../utils/EnumerableSet.sol";
 import "../utils/Address.sol";
 import "../GSN/Context.sol";
+import "../Initializable.sol";
 
 /**
  * @dev Contract module that allows children to implement role-based access
@@ -35,7 +36,17 @@ import "../GSN/Context.sol";
  * roles. More complex role relationships can be created by using
  * {_setRoleAdmin}.
  */
-abstract contract AccessControl is Context {
+abstract contract AccessControlUpgradeable is Initializable, ContextUpgradeable {
+    function __AccessControl_init() internal {
+        __Context_init_unchained();
+        __AccessControl_init_unchained();
+    }
+
+    function __AccessControl_init_unchained() internal {
+        
+        
+    }
+
     using EnumerableSet for EnumerableSet.AddressSet;
     using Address for address;
 

@@ -1,4 +1,5 @@
 pragma solidity ^0.6.0;
+import "../Initializable.sol";
 
 /*
  * @dev Provides information about the current execution context, including the
@@ -10,10 +11,19 @@ pragma solidity ^0.6.0;
  *
  * This contract is only required for intermediate, library-like contracts.
  */
-contract Context {
+contract ContextUpgradeable is Initializable {
+    function __Context_init() internal {
+        __Context_init_unchained();
+    }
+
+    function __Context_init_unchained() internal {
+        
+         
+    }
+
     // Empty internal constructor, to prevent people from mistakenly deploying
     // an instance of this contract, which should be used via inheritance.
-    constructor () internal { }
+    
 
     function _msgSender() internal view virtual returns (address payable) {
         return msg.sender;

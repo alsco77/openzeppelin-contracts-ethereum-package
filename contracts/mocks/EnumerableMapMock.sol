@@ -1,8 +1,18 @@
 pragma solidity ^0.6.0;
 
 import "../utils/EnumerableMap.sol";
+import "../Initializable.sol";
 
-contract EnumerableMapMock {
+contract EnumerableMapMockUpgradeable is Initializable {
+    function __EnumerableMapMock_init() internal {
+        __EnumerableMapMock_init_unchained();
+    }
+
+    function __EnumerableMapMock_init_unchained() internal {
+        
+        
+    }
+
     using EnumerableMap for EnumerableMap.UintToAddressMap;
 
     event OperationResult(bool result);

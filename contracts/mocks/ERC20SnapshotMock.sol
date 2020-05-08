@@ -1,17 +1,35 @@
 pragma solidity ^0.6.0;
 
 import "../token/ERC20/ERC20Snapshot.sol";
+import "../Initializable.sol";
 
 
-contract ERC20SnapshotMock is ERC20Snapshot {
-    constructor(
+contract ERC20SnapshotMockUpgradeable is Initializable, ERC20SnapshotUpgradeable {
+    function __ERC20SnapshotMock_init(
         string memory name,
         string memory symbol,
         address initialAccount,
         uint256 initialBalance
-    ) public ERC20(name, symbol) {
-        _mint(initialAccount, initialBalance);
+    ) internal {
+        __Context_init_unchained();
+        __ERC20_init_unchained(name, symbol);
+        __ERC20Snapshot_init_unchained();
+        __ERC20SnapshotMock_init_unchained(name, symbol, initialAccount, initialBalance);
     }
+
+    function __ERC20SnapshotMock_init_unchained(
+        string memory name,
+        string memory symbol,
+        address initialAccount,
+        uint256 initialBalance
+    ) internal {
+        
+        
+        _mint(initialAccount, initialBalance);
+    
+    }
+
+    
 
     function snapshot() public {
         _snapshot();

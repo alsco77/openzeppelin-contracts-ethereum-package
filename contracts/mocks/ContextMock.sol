@@ -1,8 +1,19 @@
 pragma solidity ^0.6.0;
 
 import "../GSN/Context.sol";
+import "../Initializable.sol";
 
-contract ContextMock is Context {
+contract ContextMockUpgradeable is Initializable, ContextUpgradeable {
+    function __ContextMock_init() internal {
+        __Context_init_unchained();
+        __ContextMock_init_unchained();
+    }
+
+    function __ContextMock_init_unchained() internal {
+        
+        
+    }
+
     event Sender(address sender);
 
     function msgSender() public {
@@ -16,7 +27,16 @@ contract ContextMock is Context {
     }
 }
 
-contract ContextMockCaller {
+contract ContextMockCallerUpgradeable is Initializable {
+    function __ContextMockCaller_init() internal {
+        __ContextMockCaller_init_unchained();
+    }
+
+    function __ContextMockCaller_init_unchained() internal {
+        
+        
+    }
+
     function callSender(ContextMock context) public {
         context.msgSender();
     }

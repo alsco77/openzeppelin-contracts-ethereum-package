@@ -1,4 +1,5 @@
 pragma solidity ^0.6.0;
+import "../Initializable.sol";
 
 /**
  * @dev Contract module that helps prevent reentrant calls to a function.
@@ -16,10 +17,14 @@ pragma solidity ^0.6.0;
  * to protect against it, check out our blog post
  * https://blog.openzeppelin.com/reentrancy-after-istanbul/[Reentrancy After Istanbul].
  */
-contract ReentrancyGuard {
-    bool private _notEntered;
+contract ReentrancyGuardUpgradeable is Initializable {
+    function __ReentrancyGuard_init() internal {
+        __ReentrancyGuard_init_unchained();
+    }
 
-    constructor () internal {
+    function __ReentrancyGuard_init_unchained() internal {
+        
+        
         // Storing an initial non-zero value makes deployment a bit more
         // expensive, but in exchange the refund on every call to nonReentrant
         // will be lower in amount. Since refunds are capped to a percetange of
@@ -27,7 +32,12 @@ contract ReentrancyGuard {
         // like this one, to increase the likelihood of the full refund coming
         // into effect.
         _notEntered = true;
+    
     }
+
+    bool private _notEntered;
+
+    
 
     /**
      * @dev Prevents a contract from calling itself, directly or indirectly.

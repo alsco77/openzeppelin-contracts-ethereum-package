@@ -1,8 +1,18 @@
 pragma solidity ^0.6.0;
 
 import "../utils/Address.sol";
+import "../Initializable.sol";
 
-contract AddressImpl {
+contract AddressImplUpgradeable is Initializable {
+    function __AddressImpl_init() internal {
+        __AddressImpl_init_unchained();
+    }
+
+    function __AddressImpl_init_unchained() internal {
+        
+        
+    }
+
     function isContract(address account) external view returns (bool) {
         return Address.isContract(account);
     }

@@ -1,6 +1,8 @@
 pragma solidity ^0.6.0;
 
-import "./SafeERC20.sol";
+import "../../../token/ERC20/SafeERC20.sol";
+import "../../../token/ERC20/TokenTimelock.sol";
+import "../../Initializable.sol";
 
 /**
  * @dev A token holder contract that will allow a beneficiary to extract the
@@ -11,7 +13,22 @@ import "./SafeERC20.sol";
  *
  * For a more complete vesting schedule, see {TokenVesting}.
  */
-contract TokenTimelock {
+contract TokenTimelockUpgradeable is Initializable {
+    function __TokenTimelock_init(IERC20 token, address beneficiary, uint256 releaseTime) internal {
+        __TokenTimelock_init_unchained(token, beneficiary, releaseTime);
+    }
+
+    function __TokenTimelock_init_unchained(IERC20 token, address beneficiary, uint256 releaseTime) internal {
+        
+        
+        // solhint-disable-next-line not-rely-on-time
+        require(releaseTime > block.timestamp, "TokenTimelock: release time is before current time");
+        _token = token;
+        _beneficiary = beneficiary;
+        _releaseTime = releaseTime;
+    
+    }
+
     using SafeERC20 for IERC20;
 
     // ERC20 basic token contract being held
@@ -23,13 +40,7 @@ contract TokenTimelock {
     // timestamp when token release is enabled
     uint256 private _releaseTime;
 
-    constructor (IERC20 token, address beneficiary, uint256 releaseTime) public {
-        // solhint-disable-next-line not-rely-on-time
-        require(releaseTime > block.timestamp, "TokenTimelock: release time is before current time");
-        _token = token;
-        _beneficiary = beneficiary;
-        _releaseTime = releaseTime;
-    }
+    
 
     /**
      * @return the token being held.

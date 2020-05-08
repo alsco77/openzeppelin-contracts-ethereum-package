@@ -1,8 +1,18 @@
 pragma solidity ^0.6.0;
 
 import "../utils/SafeCast.sol";
+import "../Initializable.sol";
 
-contract SafeCastMock {
+contract SafeCastMockUpgradeable is Initializable {
+    function __SafeCastMock_init() internal {
+        __SafeCastMock_init_unchained();
+    }
+
+    function __SafeCastMock_init_unchained() internal {
+        
+        
+    }
+
     using SafeCast for uint;
     using SafeCast for int;
 

@@ -1,8 +1,18 @@
 pragma solidity ^0.6.0;
 
 import "../math/Math.sol";
+import "../Initializable.sol";
 
-contract MathMock {
+contract MathMockUpgradeable is Initializable {
+    function __MathMock_init() internal {
+        __MathMock_init_unchained();
+    }
+
+    function __MathMock_init_unchained() internal {
+        
+        
+    }
+
     function max(uint256 a, uint256 b) public pure returns (uint256) {
         return Math.max(a, b);
     }

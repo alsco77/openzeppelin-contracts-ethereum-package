@@ -2,17 +2,35 @@ pragma solidity ^0.6.0;
 
 import "../GSN/Context.sol";
 import "../token/ERC777/ERC777.sol";
+import "../Initializable.sol";
 
-contract ERC777Mock is Context, ERC777 {
-    constructor(
+contract ERC777MockUpgradeable is Initializable, ContextUpgradeable, ERC777Upgradeable {
+    function __ERC777Mock_init(
         address initialHolder,
         uint256 initialBalance,
         string memory name,
         string memory symbol,
         address[] memory defaultOperators
-    ) public ERC777(name, symbol, defaultOperators) {
-        _mint(initialHolder, initialBalance, "", "");
+    ) internal {
+        __Context_init_unchained();
+        __ERC777_init_unchained(name, symbol, defaultOperators);
+        __ERC777Mock_init_unchained(initialHolder, initialBalance, name, symbol, defaultOperators);
     }
+
+    function __ERC777Mock_init_unchained(
+        address initialHolder,
+        uint256 initialBalance,
+        string memory name,
+        string memory symbol,
+        address[] memory defaultOperators
+    ) internal {
+        
+        
+        _mint(initialHolder, initialBalance, "", "");
+    
+    }
+
+    
 
     function mintInternal (
         address to,

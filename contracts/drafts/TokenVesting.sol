@@ -3,6 +3,7 @@ pragma solidity ^0.6.0;
 import "../token/ERC20/SafeERC20.sol";
 import "../access/Ownable.sol";
 import "../math/SafeMath.sol";
+import "../Initializable.sol";
 
 /**
  * @title TokenVesting
@@ -10,7 +11,31 @@ import "../math/SafeMath.sol";
  * typical vesting scheme, with a cliff and vesting period. Optionally revocable by the
  * owner.
  */
-contract TokenVesting is Ownable {
+contract TokenVestingUpgradeable is Initializable, OwnableUpgradeable {
+    function __TokenVesting_init(address beneficiary, uint256 start, uint256 cliffDuration, uint256 duration, bool revocable) internal {
+        __Context_init_unchained();
+        __Ownable_init_unchained();
+        __TokenVesting_init_unchained(beneficiary, start, cliffDuration, duration, revocable);
+    }
+
+    function __TokenVesting_init_unchained(address beneficiary, uint256 start, uint256 cliffDuration, uint256 duration, bool revocable) internal {
+        
+        
+        require(beneficiary != address(0), "TokenVesting: beneficiary is the zero address");
+        // solhint-disable-next-line max-line-length
+        require(cliffDuration <= duration, "TokenVesting: cliff is longer than duration");
+        require(duration > 0, "TokenVesting: duration is 0");
+        // solhint-disable-next-line max-line-length
+        require(start.add(duration) > block.timestamp, "TokenVesting: final time is before current time");
+
+        _beneficiary = beneficiary;
+        _revocable = revocable;
+        _duration = duration;
+        _cliff = start.add(cliffDuration);
+        _start = start;
+    
+    }
+
     // The vesting schedule is time-based (i.e. using block timestamps as opposed to e.g. block numbers), and is
     // therefore sensitive to timestamp manipulation (which is something miners can do, to a certain degree). Therefore,
     // it is recommended to avoid using short time durations (less than a minute). Typical vesting schemes, with a
@@ -46,20 +71,7 @@ contract TokenVesting is Ownable {
      * @param duration duration in seconds of the period in which the tokens will vest
      * @param revocable whether the vesting is revocable or not
      */
-    constructor (address beneficiary, uint256 start, uint256 cliffDuration, uint256 duration, bool revocable) public {
-        require(beneficiary != address(0), "TokenVesting: beneficiary is the zero address");
-        // solhint-disable-next-line max-line-length
-        require(cliffDuration <= duration, "TokenVesting: cliff is longer than duration");
-        require(duration > 0, "TokenVesting: duration is 0");
-        // solhint-disable-next-line max-line-length
-        require(start.add(duration) > block.timestamp, "TokenVesting: final time is before current time");
-
-        _beneficiary = beneficiary;
-        _revocable = revocable;
-        _duration = duration;
-        _cliff = start.add(cliffDuration);
-        _start = start;
-    }
+    
 
     /**
      * @return the beneficiary of the tokens.

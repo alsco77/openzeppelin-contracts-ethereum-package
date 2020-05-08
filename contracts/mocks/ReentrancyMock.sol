@@ -2,13 +2,24 @@ pragma solidity ^0.6.0;
 
 import "../utils/ReentrancyGuard.sol";
 import "./ReentrancyAttack.sol";
+import "../Initializable.sol";
 
-contract ReentrancyMock is ReentrancyGuard {
+contract ReentrancyMockUpgradeable is Initializable, ReentrancyGuardUpgradeable {
+    function __ReentrancyMock_init() internal {
+        __ReentrancyGuard_init_unchained();
+        __ReentrancyMock_init_unchained();
+    }
+
+    function __ReentrancyMock_init_unchained() internal {
+        
+        
+        counter = 0;
+    
+    }
+
     uint256 public counter;
 
-    constructor () public {
-        counter = 0;
-    }
+    
 
     function callback() external nonReentrant {
         _count();
