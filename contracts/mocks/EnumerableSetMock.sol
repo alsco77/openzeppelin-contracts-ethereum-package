@@ -1,8 +1,22 @@
 pragma solidity ^0.6.0;
 
 import "../utils/EnumerableSet.sol";
+import "../Initializable.sol";
 
-contract EnumerableSetMock {
+contract EnumerableSetMockUpgradeable is Initializable {
+    constructor() public  {
+        __EnumerableSetMock_init();
+    }
+
+    function __EnumerableSetMock_init() internal initializer {
+        __EnumerableSetMock_init_unchained();
+    }
+
+    function __EnumerableSetMock_init_unchained() internal initializer {
+
+
+    }
+
     using EnumerableSet for EnumerableSet.AddressSet;
 
     event OperationResult(bool result);

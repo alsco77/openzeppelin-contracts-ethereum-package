@@ -1,8 +1,22 @@
 pragma solidity ^0.6.0;
 
 import "../utils/Counters.sol";
+import "../Initializable.sol";
 
-contract CountersMock {
+contract CountersMockUpgradeable is Initializable {
+    constructor() public  {
+        __CountersMock_init();
+    }
+
+    function __CountersMock_init() internal initializer {
+        __CountersMock_init_unchained();
+    }
+
+    function __CountersMock_init_unchained() internal initializer {
+
+
+    }
+
     using Counters for Counters.Counter;
 
     Counters.Counter private _counter;
